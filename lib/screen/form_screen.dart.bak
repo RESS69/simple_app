@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:resume/screen/transaction.dart';
+import 'package:resume/screen/transaction_provinder.dart';
+
+class FormScreen extends StatelessWidget {
+  const FormScreen({super.key});
+
+  final formKey = GlobalKey()
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('แบบฟอร์มข้อมูล'),
+        ),
+        body: Form(
+            child: Column(
+          children: [
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'ชื่อรายการ',
+              ),
+              autofocus: true,
+              validator: (String? str){
+                if(str!.isEmpty){
+                  return "retry";
+                }
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'จำนวนเงิน',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextButton(
+              child: const Text('บันทึก'),
+              onPressed: () => {
+                if (formKey.currentState!.validate()){
+                  Navigator.pop(context),
+                }
+              },
+            )
+          ],
+        )));
+  }
+}

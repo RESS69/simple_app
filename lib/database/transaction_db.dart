@@ -25,7 +25,8 @@ class TransactionDB {
 
     var keyID = store.add(db, {
       "title": statement.title,
-      "amount": statement.amount,
+      "brand": statement.brand,
+      "amount": statement.about,
       "date": statement.date.toIso8601String()
     });
     db.close();
@@ -35,14 +36,36 @@ class TransactionDB {
   Future<List<Transactions>> loadAllData() async {
     var db = await this.openDatabase();
     var store = intMapStoreFactory.store('expense');
-    var snapshot = await store.find(db);
+    var snapshot = await store.find(db,
+        finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
     List<Transactions> transactions = [];
     for (var record in snapshot) {
       transactions.add(Transactions(
+          keyID: record.key,
           title: record['title'].toString(),
-          amount: double.parse(record['amount'].toString()),
-          date: DateTime.parse(record['date'].toString())));
+          about: record['title'].toString(),
+          date: DateTime.parse(record['date'].toString()),
+          brand: record['brand'].toString()));
     }
     return transactions;
+  }
+
+  deleteDatabase(int? index) async {
+    var db = await this.openDatabase();
+    var store = intMapStoreFactory.store('expense');
+    await store.delete(db,
+        finder: Finder(filter: Filter.equals(Field.key, index)));
+  }
+
+  Future<void> updateDatabase(Transactions statement) async {
+    var db = await this.openDatabase();
+    var store = intMapStoreFactory.store('expense');
+
+    await store.record(statement.keyID!).update(db, {
+      "title": statement.title,
+      "brand": statement.brand,
+      "amount": statement.about,
+      "date": statement.date.toIso8601String()
+    });
   }
 }

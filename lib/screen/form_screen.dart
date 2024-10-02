@@ -1,14 +1,17 @@
+import 'package:resume/main.dart';
 import 'package:resume/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:resume/provider/transaction_provider.dart';
+import 'package:resume/screen/HomeScreen.dart';
 
 class FormScreen extends StatelessWidget {
   FormScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final brandController = TextEditingController();
+  final aboutController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class FormScreen extends StatelessWidget {
               children: [
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ชื่อรายการ',
+                    labelText: 'อุปกรณ์ที่ใช้ในการเล่นเกม',
                   ),
                   autofocus: true,
                   controller: titleController,
@@ -34,18 +37,25 @@ class FormScreen extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'จำนวนเงิน',
+                    labelText: 'ยี่ห้อ',
                   ),
-                  keyboardType: TextInputType.number,
-                  controller: amountController,
-                  validator: (String? input) {
-                    try {
-                      double amount = double.parse(input!);
-                      if (amount < 0) {
-                        return 'กรุณากรอกข้อมูลมากกว่า 0';
-                      }
-                    } catch (e) {
-                      return 'กรุณากรอกข้อมูลเป็นตัวเลข';
+                  autofocus: true,
+                  controller: brandController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'ทำไมถึงเลือก อุปกรณ์นี้',
+                  ),
+                  autofocus: true,
+                  controller: aboutController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
                     }
                   },
                 ),
@@ -55,8 +65,10 @@ class FormScreen extends StatelessWidget {
                       if (formKey.currentState!.validate()) {
                         // create transaction data object
                         var statement = Transactions(
+                            keyID: null,
                             title: titleController.text,
-                            amount: double.parse(amountController.text),
+                            brand: brandController.text,
+                            about: aboutController.text,
                             date: DateTime.now());
 
                         // add transaction data object to provider
@@ -65,7 +77,10 @@ class FormScreen extends StatelessWidget {
 
                         provider.addTransaction(statement);
 
-                        Navigator.pop(context);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return MyHomePage();
+                        }));
                       }
                     })
               ],

@@ -9,6 +9,12 @@ class TransactionProvider with ChangeNotifier {
     return transactions;
   }
 
+  void innitData() async {
+    var db = await TransactionDB(dbName: 'transactions.db');
+    this.transactions = await db.loadAllData();
+    notifyListeners();
+  }
+
   void addTransaction(Transactions transaction) async {
     var db = await TransactionDB(dbName: 'transactions.db');
     var keyID = await db.insertDatabase(transaction);
@@ -16,8 +22,19 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTransaction(int index) {
-    transactions.removeAt(index);
+  void deleteTransaction(int? index) async {
+    print('delete index: $index');
+    var db = await TransactionDB(dbName: 'transactions.db');
+    await db.deleteDatabase(index);
+    this.transactions = await db.loadAllData();
+    notifyListeners();
+  }
+
+  void updateTransaction(Transactions transaction) async {
+    var db = await TransactionDB(dbName: 'transactions.db');
+    await db.updateDatabase(
+        transaction); // You will need to implement this in TransactionDB
+    this.transactions = await db.loadAllData();
     notifyListeners();
   }
 }

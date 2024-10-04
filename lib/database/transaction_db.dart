@@ -26,7 +26,7 @@ class TransactionDB {
     var keyID = store.add(db, {
       "title": statement.title,
       "brand": statement.brand,
-      "amount": statement.about,
+      "amount": statement.amount,
       "date": statement.date.toIso8601String()
     });
     db.close();
@@ -43,7 +43,7 @@ class TransactionDB {
       transactions.add(Transactions(
           keyID: record.key,
           title: record['title'].toString(),
-          about: record['title'].toString(),
+          amount: record['amount'].toString(),
           date: DateTime.parse(record['date'].toString()),
           brand: record['brand'].toString()));
     }
@@ -64,7 +64,7 @@ class TransactionDB {
     await store.record(statement.keyID!).update(db, {
       "title": statement.title,
       "brand": statement.brand,
-      "amount": statement.about,
+      "amount": statement.amount,
       "date": statement.date.toIso8601String()
     });
   }

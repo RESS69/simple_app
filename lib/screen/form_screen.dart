@@ -11,7 +11,7 @@ class FormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final brandController = TextEditingController();
-  final aboutController = TextEditingController();
+  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class FormScreen extends StatelessWidget {
               children: [
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'อุปกรณ์ที่ใช้ในการเล่นเกม',
+                    labelText: 'เครื่องเล่นเกม',
                   ),
                   autofocus: true,
                   controller: titleController,
@@ -37,7 +37,7 @@ class FormScreen extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ยี่ห้อ',
+                    labelText: 'จุดเด่น',
                   ),
                   autofocus: true,
                   controller: brandController,
@@ -49,10 +49,10 @@ class FormScreen extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ทำไมถึงเลือก อุปกรณ์นี้',
+                    labelText: 'ราคาเปิดตัว',
                   ),
                   autofocus: true,
-                  controller: aboutController,
+                  controller: amountController,
                   validator: (String? str) {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
@@ -68,7 +68,7 @@ class FormScreen extends StatelessWidget {
                             keyID: null,
                             title: titleController.text,
                             brand: brandController.text,
-                            about: aboutController.text,
+                            amount: amountController.text,
                             date: DateTime.now());
 
                         // add transaction data object to provider

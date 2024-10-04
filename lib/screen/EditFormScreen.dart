@@ -11,12 +11,12 @@ class EditFormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final brandController = TextEditingController();
-  final aboutController = TextEditingController();
+  final amountController = TextEditingController();
 
   void initState() {
     titleController.text = transaction.title;
     brandController.text = transaction.brand;
-    aboutController.text = transaction.about;
+    amountController.text = transaction.amount;
   }
 
   @override
@@ -31,7 +31,7 @@ class EditFormScreen extends StatelessWidget {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'อุปกรณ์ที่ใช้ในการเล่นเกม',
+                labelText: 'เครื่องเล่นเกม',
               ),
               controller: titleController,
               validator: (String? str) {
@@ -42,7 +42,7 @@ class EditFormScreen extends StatelessWidget {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'ยี่ห้อ',
+                labelText: 'จุดเด่น',
               ),
               controller: brandController,
               validator: (String? str) {
@@ -53,10 +53,10 @@ class EditFormScreen extends StatelessWidget {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                labelText: 'อุปกรณ์ที่ใช้ในการเล่นเกม',
+                labelText: 'ราคาเปิดตัว',
               ),
               autofocus: true,
-              controller: aboutController,
+              controller: amountController,
               validator: (String? str) {
                 if (str!.isEmpty) {
                   return 'กรุณากรอกข้อมูล';
@@ -71,7 +71,7 @@ class EditFormScreen extends StatelessWidget {
                     keyID: transaction.keyID,
                     title: titleController.text,
                     brand: brandController.text,
-                    about: aboutController.text,
+                    amount: amountController.text,
                     date: transaction.date, // Keep the same date
                   );
 

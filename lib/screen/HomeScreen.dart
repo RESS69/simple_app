@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:resume/provider/transaction_provider.dart';
 import 'package:resume/screen/EditFormScreen.dart';
+import 'package:resume/screen/detailScreen.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -24,7 +25,7 @@ class _MyHomeScreenState extends State<Homescreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: const Text("อุปกรณ์เล่นเกม"),
+          title: const Text("เครื่องเล่นเกม"),
           actions: [
             IconButton(
               icon: const Icon(Icons.exit_to_app),
@@ -53,7 +54,7 @@ class _MyHomeScreenState extends State<Homescreen> {
                       title: Text(statement.title),
                       subtitle: Text(DateFormat('dd MMM yyyy hh:mm:ss')
                           .format(statement.date)),
-                      leading: CircleAvatar(
+                      leading: const CircleAvatar(
                         radius: 30,
                         child: FittedBox(
                           child: Icon(
@@ -86,6 +87,13 @@ class _MyHomeScreenState extends State<Homescreen> {
                           ),
                         ],
                       ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailScreen(transaction: statement)));
+                      },
                     ),
                   );
                 },

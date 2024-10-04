@@ -3,7 +3,7 @@ class Transactions {
   final int? keyID;
   final String title;
   final String brand;
-  final String about;
+  final String amount;
   final DateTime date;
 
   Transactions({
@@ -11,7 +11,7 @@ class Transactions {
     this.keyID,
     required this.title,
     required this.brand,
-    required this.about,
+    required this.amount,
     required this.date,
   });
 }

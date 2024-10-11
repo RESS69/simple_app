@@ -58,9 +58,8 @@ class _MyHomeScreenState extends State<Homescreen> {
                         radius: 30,
                         child: FittedBox(
                           child: Icon(
-                            Icons
-                                .gamepad, // Change this to any gaming-related icon
-                            size: 24, // Adjust size as needed
+                            Icons.gamepad,
+                            size: 24,
                           ),
                         ),
                       ),

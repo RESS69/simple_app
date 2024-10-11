@@ -3,20 +3,28 @@ import 'package:provider/provider.dart';
 import 'package:resume/models/transaction.dart';
 import 'package:resume/provider/transaction_provider.dart';
 
-class EditFormScreen extends StatelessWidget {
+class EditFormScreen extends StatefulWidget {
   final Transactions transaction;
 
-  EditFormScreen({super.key, required this.transaction});
+  const EditFormScreen({super.key, required this.transaction});
 
+  @override
+  _EditFormScreenState createState() => _EditFormScreenState();
+}
+
+class _EditFormScreenState extends State<EditFormScreen> {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final brandController = TextEditingController();
   final amountController = TextEditingController();
 
+  @override
   void initState() {
-    titleController.text = transaction.title;
-    brandController.text = transaction.brand;
-    amountController.text = transaction.amount;
+    super.initState();
+    // Initialize the form fields with the transaction data
+    titleController.text = widget.transaction.title;
+    brandController.text = widget.transaction.brand;
+    amountController.text = widget.transaction.amount;
   }
 
   @override
@@ -38,6 +46,7 @@ class EditFormScreen extends StatelessWidget {
                 if (str!.isEmpty) {
                   return 'กรุณากรอกข้อมูล';
                 }
+                return null;
               },
             ),
             TextFormField(
@@ -49,18 +58,19 @@ class EditFormScreen extends StatelessWidget {
                 if (str!.isEmpty) {
                   return 'กรุณากรอกข้อมูล';
                 }
+                return null;
               },
             ),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'ราคาเปิดตัว',
               ),
-              autofocus: true,
               controller: amountController,
               validator: (String? str) {
                 if (str!.isEmpty) {
                   return 'กรุณากรอกข้อมูล';
                 }
+                return null;
               },
             ),
             TextButton(
@@ -68,19 +78,18 @@ class EditFormScreen extends StatelessWidget {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   var updatedTransaction = Transactions(
-                    keyID: transaction.keyID,
+                    keyID: widget.transaction.keyID,
                     title: titleController.text,
                     brand: brandController.text,
                     amount: amountController.text,
-                    date: transaction.date, // Keep the same date
+                    date: widget.transaction.date,
                   );
 
-                  // Update the transaction data in the provider
                   var provider =
                       Provider.of<TransactionProvider>(context, listen: false);
                   provider.updateTransaction(updatedTransaction);
 
-                  Navigator.pop(context); // Go back to the previous screen
+                  Navigator.pop(context);
                 }
               },
             ),

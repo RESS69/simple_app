@@ -32,8 +32,7 @@ class TransactionProvider with ChangeNotifier {
 
   void updateTransaction(Transactions transaction) async {
     var db = await TransactionDB(dbName: 'transactions.db');
-    await db.updateDatabase(
-        transaction); // You will need to implement this in TransactionDB
+    await db.updateDatabase(transaction);
     this.transactions = await db.loadAllData();
     notifyListeners();
   }

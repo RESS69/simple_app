@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: MyHomePage(), // เพิ่มส่วนนี้เพื่อระบุหน้าเริ่มต้น
+        home: MyHomePage(),
       ),
     );
   }

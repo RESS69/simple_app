@@ -63,7 +63,6 @@ class FormScreen extends StatelessWidget {
                     child: const Text('บันทึก'),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        // create transaction data object
                         var statement = Transactions(
                             keyID: null,
                             title: titleController.text,
@@ -71,7 +70,6 @@ class FormScreen extends StatelessWidget {
                             amount: amountController.text,
                             date: DateTime.now());
 
-                        // add transaction data object to provider
                         var provider = Provider.of<TransactionProvider>(context,
                             listen: false);
 
